@@ -15,7 +15,6 @@
     "laravel-elixir-webpack": "^1.0.1",
     "laravel-mix": "^2.0",
     "lodash": "^4.17.10",
-    "superagent": "^1.4.0",
     "vue-marquee-tips": "^1.0.7",
     "vue-preload": "^0.1.11",
     "vue-spinner": "^1.0.3"
