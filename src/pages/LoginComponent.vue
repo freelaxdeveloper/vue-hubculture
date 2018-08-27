@@ -16,7 +16,7 @@
 
 <script>
 import axios from 'axios'
-import { EventBus } from '../event-bus.js';
+import { EventBus } from '../event-bus.js'
 
 export default {
   data() {
@@ -28,12 +28,12 @@ export default {
     }
   },
   methods: {
-    async onSubmit() {
+    onSubmit() {
       var options = {
           email: this.form.email,
           password: this.form.password,
       }
-      await axios.post('https://id.hubculture.com/auth', options).then((response) => {
+      axios.post('https://id.hubculture.com/auth', options).then((response) => {
 
         var token = response.data.data.token
         EventBus.$emit('user-token', token)

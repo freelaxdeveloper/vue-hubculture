@@ -38,10 +38,11 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import axios from 'axios'
 import lodash from 'lodash'
 
-Vue.component('pagination', require('../components/PaginationComponent.vue'));
+Vue.component('pagination', require('../components/PaginationComponent.vue').default);
 
 export default {
   data() {

@@ -20,7 +20,7 @@
           <!-- <p class="card-text">
             {{ user.email }}
           </p> -->
-          <b-button size="sm" :href="`/#/user/info/${user.id}`" variant="primary">Profile view</b-button>
+          <b-button size="sm" :href="`/user/info/${user.id}`" variant="primary">Profile view</b-button>
         </b-card>
       </b-col>
     </b-row>
@@ -36,7 +36,6 @@
 
 <script>
 import axios from 'axios'
-import lodash from 'lodash'
 
 export default {
   data() {
@@ -60,7 +59,7 @@ export default {
     // дожидаясь завершения печати вопроса перед тем как послать ajax-запрос.
     // Чтобы узнать больше о функции _.debounce (и её родственнице _.throttle),
     // см. документацию: https://lodash.com/docs#debounce
-    this.debouncedGetAnswer = lodash._.debounce(this.getAnswer, 500)
+    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
   },
   methods: {
     getAnswer: function () {

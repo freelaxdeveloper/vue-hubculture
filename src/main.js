@@ -1,24 +1,25 @@
-window.Vue = require('./lib/vue.lib')
-import { EventBus } from './event-bus.js';
+import Vue from 'vue'
+import App from './App.vue'
+import { EventBus } from './event-bus.js'
 
+import sassStyles from './assets/sass/app.scss'
 import BootstrapVue from 'bootstrap-vue'
-var VueRouter = require('vue-router')
-
-Vue.use(VueRouter)
-Vue.use(BootstrapVue);
-
-var News = require('./pages/NewsComponent.vue')
-var Post = require('./pages/PostComponent.vue')
-var Home = require('./pages/HomeComponent.vue')
-var Market = require('./pages/MarketComponent.vue')
-var Login = require('./pages/LoginComponent.vue')
-var Logout = require('./pages/LogoutComponent.vue')
-var UserSearch = require('./pages/UserSearchComponent.vue')
-var UserInfo = require('./pages/UserInfoComponent.vue')
-
-Vue.component('nav-bar', require('./components/NavBarComponent.vue'))
-
+import VueRouter from 'vue-router'
 import axios from 'axios'
+
+Vue.use(BootstrapVue);
+Vue.use(VueRouter)
+
+Vue.component('nav-bar', require('./components/NavBarComponent.vue').default)
+
+import News from './pages/NewsComponent'
+import Post from './pages/PostComponent'
+import Home from './pages/HomeComponent'
+import Market from './pages/MarketComponent'
+import Login from './pages/LoginComponent'
+import Logout from './pages/LogoutComponent'
+import UserSearch from './pages/UserSearchComponent'
+import UserInfo from './pages/UserInfoComponent'
 
 
 var token = localStorage.getItem('user-token')
@@ -33,26 +34,13 @@ EventBus.$on('user-logout', () => {
   delete axios.defaults.headers.common['Authorization']
 });
 
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-axios.defaults.headers.common['Private-Key'] = '***'
-axios.defaults.headers.common['Public-Key'] = '***'
 
-// const ifAuthenticated = (to, from, next) => {
-//   if (true) {
-//     next()
-//     return
-//   }
-//   next('/login')
-// }
-// const ifNotAuthenticated = (to, from, next) => {
-//   if (!token) {
-//     next()
-//     return
-//   }
-//   next('/')
-// }
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+axios.defaults.headers.common['Private-Key'] = 'private_5d265de1d9204f6235830ce2'
+axios.defaults.headers.common['Public-Key'] = 'public_153222247f4cbe2511208120a'
 
 var router = new VueRouter({
+  mode: 'history',
   routes: [
     {path: '/', component: Home},
     {path: '/login', component: Login},
@@ -69,4 +57,5 @@ var router = new VueRouter({
 new Vue({
   el: '#app',
   router: router,
+  render: h => h(App)
 })
