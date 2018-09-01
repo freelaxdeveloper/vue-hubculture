@@ -49,8 +49,8 @@ export default {
     }
   },
   methods: {
-    async fetchUser() {
-      await axios.get('https://id.hubculture.com/user/' + this.user_id).then((response) => {
+    fetchUser() {
+      axios.get('https://id.hubculture.com/user/' + this.user_id).then((response) => {
         this.user = response.data.data
       }).catch((error) => {
         this.error = error.response.data.errors[0]

@@ -30,7 +30,6 @@
 
 <script>
 import axios from 'axios'
-import { EventBus } from '../event-bus.js';
 
 export default {
   data() {
@@ -49,19 +48,19 @@ export default {
       }).catch((error) => {
         this.errors = Object.values(error.response.data)
         
-        if (401 == error.response.status && this.attemptsRewriteToken > 0) {
-          axios.put('https://id.hubculture.com/token').then((response) => {
-            console.log('token refresh', response.data)
-            EventBus.$emit('user-token', response.data.data.token)
-            this.errors = []
-            this.fetchMarket()
-            --this.attemptsRewriteToken
-          })
-        }
+        // if (401 == error.response.status && this.attemptsRewriteToken > 0) {
+        //   axios.put('https://id.hubculture.com/token').then((response) => {
+        //     console.log('token refresh', response.data)
+        //     // EventBus.$emit('user-token', response.data.data.token)
+        //     this.errors = []
+        //     this.fetchMarket()
+        //     --this.attemptsRewriteToken
+        //   })
+        // }
       })
     }
   },
-  mounted() {
+  created() {
     this.fetchMarket();
     console.log(this.$router.currentRoute)
   }

@@ -1,13 +1,13 @@
 var path = require('path')
 var webpack = require('webpack')
-// var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 // var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist',
+    publicPath: '/',
     filename: 'build.js'
   },
   module: {
@@ -98,10 +98,10 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
 
-    // new HtmlWebpackPlugin({
-    //   template: 'index.html',
-    //   filename: path.resolve(__dirname, 'dist/index.html') 
-    // }),
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      filename: path.resolve(__dirname, 'dist/index.html') 
+    }),
 
     // new PrerenderSpaPlugin(
     //   path.resolve(__dirname, './dist/'),

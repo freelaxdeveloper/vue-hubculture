@@ -38,6 +38,70 @@
   </div>
 </template>
 
+<script>
+import lodash from 'lodash'
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      errors: [],
+      markets: [],
+      myMarkets: [],
+      attemptsRewriteToken: 5,
+    }
+  },
+  computed: {
+    news() {
+      return this.$store.state.news
+    },
+  },
+  methods: {
+    pushMyMarket(market, index) {
+      if (this.myMarkets[index]) {
+        return
+      }
+      this.myMarkets.push(market)
+    },
+    fetchMarket() {
+      axios.get('https://id.hubculture.com/markets').then((response) => {
+
+        this.markets = response.data.data
+
+      }).catch((error) => {
+        this.errors = Object.values(error.response.data)
+        
+        // if (401 == error.response.status && this.attemptsRewriteToken > 0) {
+        //   axios.put('https://id.hubculture.com/token').then((response) => {
+        //     console.log('token refresh', response.data)
+        //     EventBus.$emit('user-token', response.data.data.token)
+        //     this.errors = []
+        //     this.fetchMarket()
+        //     --this.attemptsRewriteToken
+        //   })
+        // }
+      })
+    },
+    fetchNews() {
+      var options = {
+        params: {offset: 0, limit: 3}
+      }
+      axios.get('https://id.hubculture.com/articles/group/0/news', options).then((response) => {
+        this.$store.dispatch('setNews', response.data.data.items)
+        // console.log('setNews', response.data.data.items);
+      }).then(function (error) {
+
+      })
+    },
+  },
+  created() {
+    this.fetchMarket();
+    this.fetchNews();
+  }
+}
+</script>
+
+
 <style scoped>
   .marquee{
     width:100%;
@@ -81,63 +145,3 @@
   }
 
 </style>
-
-<script>
-import lodash from 'lodash'
-import axios from 'axios'
-
-import { EventBus } from '../event-bus.js';
-
-export default {
-  data() {
-    return {
-      errors: [],
-      markets: [],
-      myMarkets: [],
-      news: [],
-      attemptsRewriteToken: 5,
-    }
-  },
-  methods: {
-    pushMyMarket(market, index) {
-      if (this.myMarkets[index]) {
-        return
-      }
-      this.myMarkets.push(market)
-    },
-    fetchMarket() {
-      axios.get('https://id.hubculture.com/markets').then((response) => {
-
-        this.markets = response.data.data
-
-      }).catch((error) => {
-        this.errors = Object.values(error.response.data)
-        
-        if (401 == error.response.status && this.attemptsRewriteToken > 0) {
-          axios.put('https://id.hubculture.com/token').then((response) => {
-            console.log('token refresh', response.data)
-            EventBus.$emit('user-token', response.data.data.token)
-            this.errors = []
-            this.fetchMarket()
-            --this.attemptsRewriteToken
-          })
-        }
-      })
-    },
-    fetchNews() {
-      var options = {
-        params: {offset: 0, limit: 3}
-      }
-      axios.get('https://id.hubculture.com/articles/group/0/news', options).then((response) => {
-        this.news = response.data.data.items
-      }).then(function (error) {
-
-      })
-    },
-  },
-  mounted() {
-    this.fetchMarket();
-    this.fetchNews();
-  }
-}
-</script>

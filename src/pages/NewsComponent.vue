@@ -2,7 +2,7 @@
   <div>
     <b-breadcrumb :items="items"></b-breadcrumb>
 
-    <div v-if="!loaded">Loading...</div>
+    <div v-if="!loaded" class="loaded">Loading...</div>
 
     <pagination 
       :current="currentPage" 
@@ -75,9 +75,6 @@ export default {
       this.loaded = false
       page = this.$route.params.page ? parseInt(this.$route.params.page) : 1
       var options = {
-        headers: {
-          'Private-Key': 'private_5d265de1d9204f6235830ce2',
-        },
         params: {
           offset: (page !== 1) ? page * this.perPage - this.perPage : page,
           limit: this.perPage

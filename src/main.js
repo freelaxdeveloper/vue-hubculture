@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { EventBus } from './event-bus.js'
+import { store } from './store/store.js';
 
 import sassStyles from './assets/sass/app.scss'
 import BootstrapVue from 'bootstrap-vue'
@@ -22,33 +23,35 @@ import UserSearch from './pages/UserSearchComponent'
 import UserInfo from './pages/UserInfoComponent'
 
 
-var token = localStorage.getItem('user-token')
+axios.defaults.headers.common['Private-Key'] = '***'
+axios.defaults.headers.common['Public-Key'] = '***'
 
-EventBus.$on('user-token', token => {
-  localStorage.setItem('user-token', token)
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-});
+const ifAuthenticated = (to, from, next) => {
+  if (store.state.token) {
+    next()
+    return
+  }
+  next('/login')
+}
 
-EventBus.$on('user-logout', () => {
-  localStorage.clear()
-  delete axios.defaults.headers.common['Authorization']
-});
-
-
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-axios.defaults.headers.common['Private-Key'] = 'private_5d265de1d9204f6235830ce2'
-axios.defaults.headers.common['Public-Key'] = 'public_153222247f4cbe2511208120a'
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.state.token) {
+    next()
+    return
+  }
+  next('/')
+}
 
 var router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {path: '/', component: Home},
-    {path: '/login', component: Login},
+    {path: '/login', component: Login, beforeEnter: ifNotAuthenticated},
     // {path: '/logout', component: Logout, beforeEnter: ifAuthenticated},
     {path: '/logout', component: Logout},
     {path: '/news/:page?', component: News, name: 'news'},
-    {path: '/market', component: Market, name: 'market'},
-    {path: '/users', component: UserSearch, name: 'user-search'},
+    {path: '/market', component: Market, name: 'market', beforeEnter: ifAuthenticated},
+    {path: '/users', component: UserSearch, name: 'user-search', beforeEnter: ifAuthenticated},
     {path: '/user/info/:id', component: UserInfo, name: 'user-info'},
     {path: '/post/:id', name: 'post', component: Post, props: true },
   ]
@@ -56,6 +59,17 @@ var router = new VueRouter({
 
 new Vue({
   el: '#app',
+  store,
   router: router,
-  render: h => h(App)
+  render: h => h(App),
+  computed: {
+    token() {
+      return this.$store.state.token
+    }
+  },
+  created() {
+    if (this.token) {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
+    }
+  },
 })

@@ -11,7 +11,7 @@ import { EventBus } from '../event-bus.js';
 export default {
   methods: {
     logout() {
-      EventBus.$emit('user-logout')
+      this.$store.dispatch('logout')
       this.$router.go(-1)
     }
   },

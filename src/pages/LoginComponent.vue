@@ -16,7 +16,6 @@
 
 <script>
 import axios from 'axios'
-import { EventBus } from '../event-bus.js'
 
 export default {
   data() {
@@ -25,6 +24,14 @@ export default {
         email: '',
         password: '',
       }
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
+    token() {
+      return this.$store.state.token
     }
   },
   methods: {
@@ -36,22 +43,15 @@ export default {
       axios.post('https://id.hubculture.com/auth', options).then((response) => {
 
         var token = response.data.data.token
-        EventBus.$emit('user-token', token)
+        this.$store.dispatch('setToken', token)
 
-        axios.get('https://id.hubculture.com/user', {
-          headers: {
-            Authorization: 'Bearer ' + token
-          }
-        }).then((response) => {
-          localStorage.setItem('user-data', JSON.stringify(response.data.data))
-          EventBus.$emit('user-data', JSON.stringify(response.data.data));
+        axios.get('https://id.hubculture.com/user').then((response) => {
+          this.$store.dispatch('setUser', response.data.data)
           this.form = {email: '', password: ''}
           this.$router.go(-1)
         }).catch((error) => {
           // console.log('auth error, remove the token')
         })
-
-        // this.$router.push('/')
 
       }).catch(function (error) {
 
