@@ -10,7 +10,7 @@
 
     <b-container class="bv-example-row">
       <transition-group name="list" tag="div">
-        <span v-for="(market, index) in myMarkets" :key="index" class="list-item">
+        <span v-for="(market, index) in currencies" :key="index" class="list-item">
           {{ market.currency }}: {{ market.rate }}
         </span>
       </transition-group>
@@ -47,21 +47,22 @@ export default {
     return {
       errors: [],
       markets: [],
-      myMarkets: [],
-      attemptsRewriteToken: 5,
     }
   },
   computed: {
     news() {
       return this.$store.state.news
     },
+    currencies() {
+      return this.$store.state.currencies
+    },
   },
   methods: {
     pushMyMarket(market, index) {
-      if (this.myMarkets[index]) {
+      if (this.currencies[index]) {
         return
       }
-      this.myMarkets.push(market)
+      this.$store.dispatch('addCurrency', market)
     },
     fetchMarket() {
       axios.get('/markets').then((response) => {
@@ -70,16 +71,6 @@ export default {
 
       }).catch((error) => {
         this.errors = Object.values(error.response.data)
-        
-        // if (401 == error.response.status && this.attemptsRewriteToken > 0) {
-        //   axios.put('https://id.hubculture.com/token').then((response) => {
-        //     console.log('token refresh', response.data)
-        //     EventBus.$emit('user-token', response.data.data.token)
-        //     this.errors = []
-        //     this.fetchMarket()
-        //     --this.attemptsRewriteToken
-        //   })
-        // }
       })
     },
     fetchNews() {
@@ -88,7 +79,6 @@ export default {
       }
       axios.get('/articles/group/0/news', options).then((response) => {
         this.$store.dispatch('setNews', response.data.data.items)
-        // console.log('setNews', response.data.data.items);
       }).then(function (error) {
 
       })

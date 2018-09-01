@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
     news: {},
     user: JSON.parse(localStorage.getItem(KEY_USER)) || null,
     token: localStorage.getItem(KEY_TOKEN) || null,
+    currencies: [],
   },
   actions,
   getters,

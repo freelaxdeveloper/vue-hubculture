@@ -26,10 +26,10 @@ export default {
     breadcrumbs: function () {
       return [{
         text: 'Home',
-        href: '/#/'
+        href: '#/'
       }, {
         text: 'News',
-        href: '/#/news/' + this.page + '/'
+        href: '#/news/' + this.page
       }, {
         text: this.mutatedNews.title,
         active: true

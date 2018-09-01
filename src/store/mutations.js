@@ -4,6 +4,9 @@ export const KEY_TOKEN = 'user-token'
 export const KEY_USER = 'user-data'
 
 export const mutations = {
+  addCurrency(state, currency) {
+    state.currencies.push(currency)
+  },
   setNews(state, news) {
     state.news = news
   },

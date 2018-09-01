@@ -4,14 +4,14 @@
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <b-navbar-brand href="/#/">HubCulture</b-navbar-brand>
+      <b-navbar-brand href="#/">HubCulture</b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item href="/#/" :class="{active: routeCurrent.path == '/'}">Home </b-nav-item>
-          <b-nav-item href="/#/news" :class="{active: routeCurrent.name == 'news'}">News</b-nav-item>
-          <b-nav-item href="/#/market" :class="{active: routeCurrent.path == '/market/'}">Market</b-nav-item>
-          <b-nav-item href="/#/users" :class="{active: routeCurrent.path == '/users/'}">Users</b-nav-item>
+          <b-nav-item href="#/" :class="{active: routeCurrent.path == '/'}">Home </b-nav-item>
+          <b-nav-item href="#/news" :class="{active: routeCurrent.name == 'news'}">News</b-nav-item>
+          <b-nav-item href="#/market" :class="{active: routeCurrent.path == '/market/'}">Market</b-nav-item>
+          <b-nav-item href="#/users" :class="{active: routeCurrent.path == '/users/'}">Users</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -33,14 +33,14 @@
             <template slot="button-content">
               <em>{{ user.name }}</em>
             </template>
-            <b-dropdown-item href="/#/logout">Logout</b-dropdown-item>
+            <b-dropdown-item href="#/logout">Logout</b-dropdown-item>
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown right v-else>
             <template slot="button-content">
               <em>Гость</em>
             </template>
-            <b-dropdown-item href="/#/login">Login</b-dropdown-item>
+            <b-dropdown-item href="#/login">Login</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
 

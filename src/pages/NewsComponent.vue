@@ -60,7 +60,7 @@ export default {
     items: function () {
       return [{
         text: 'Home',
-        href: '/#/'
+        href: '#/'
       }, {
         text: 'News (page ' + this.currentPage + ')',
         active: true

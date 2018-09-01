@@ -17,10 +17,7 @@
           style="max-width: 20rem;"
           class="mb-2"
         >
-          <!-- <p class="card-text">
-            {{ user.email }}
-          </p> -->
-          <b-button size="sm" :href="`/#/user/info/${user.id}`" variant="primary">Profile view</b-button>
+          <b-button size="sm" :href="`#/user/info/${user.id}`" variant="primary">Profile view</b-button>
         </b-card>
       </b-col>
     </b-row>

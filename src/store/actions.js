@@ -1,4 +1,7 @@
 export default {
+  addCurrency({ commit }, currency) {
+    commit('addCurrency', currency)
+  },
   setNews ({ commit }, news) {
     commit('setNews', news)
   },
