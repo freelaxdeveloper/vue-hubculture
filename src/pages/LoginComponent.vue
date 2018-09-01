@@ -40,12 +40,12 @@ export default {
           email: this.form.email,
           password: this.form.password,
       }
-      axios.post('https://id.hubculture.com/auth', options).then((response) => {
+      axios.post('/auth', options).then((response) => {
 
         var token = response.data.data.token
         this.$store.dispatch('setToken', token)
 
-        axios.get('https://id.hubculture.com/user').then((response) => {
+        axios.get('/user').then((response) => {
           this.$store.dispatch('setUser', response.data.data)
           this.form = {email: '', password: ''}
           this.$router.go(-1)

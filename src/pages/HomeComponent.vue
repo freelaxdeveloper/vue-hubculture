@@ -64,7 +64,7 @@ export default {
       this.myMarkets.push(market)
     },
     fetchMarket() {
-      axios.get('https://id.hubculture.com/markets').then((response) => {
+      axios.get('/markets').then((response) => {
 
         this.markets = response.data.data
 
@@ -86,7 +86,7 @@ export default {
       var options = {
         params: {offset: 0, limit: 3}
       }
-      axios.get('https://id.hubculture.com/articles/group/0/news', options).then((response) => {
+      axios.get('/articles/group/0/news', options).then((response) => {
         this.$store.dispatch('setNews', response.data.data.items)
         // console.log('setNews', response.data.data.items);
       }).then(function (error) {

@@ -20,6 +20,7 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 
 
 https://alligator.io/vuejs/global-event-bus/
+https://blog.sqreen.io/authentication-best-practices-vue/
 
 If mod hystory true
 <IfModule mod_rewrite.c>

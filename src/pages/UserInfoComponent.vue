@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     fetchUser() {
-      axios.get('https://id.hubculture.com/user/' + this.user_id).then((response) => {
+      axios.get('/user/' + this.user_id).then((response) => {
         this.user = response.data.data
       }).catch((error) => {
         this.error = error.response.data.errors[0]

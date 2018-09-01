@@ -74,7 +74,7 @@ export default {
         }
         
       }
-      axios.get('https://id.hubculture.com/users/search', options)
+      axios.get('/users/search', options)
         .then((response) => {
           this.answer = 'Нашел'
           this.users = response.data.data

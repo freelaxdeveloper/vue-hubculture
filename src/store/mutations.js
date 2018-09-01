@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-export const STORAGE_KEY = 'todos-vuejs'
+export const KEY_TOKEN = 'user-token'
+export const KEY_USER = 'user-data'
 
 export const mutations = {
   setNews(state, news) {
@@ -8,12 +9,12 @@ export const mutations = {
   },
   setToken(state, token) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-    localStorage.setItem('user-token', token)
+    localStorage.setItem(KEY_TOKEN, token)
     state.token = token
   },
   setUser(state, user) {
     console.log('setUser', user);
-    localStorage.setItem('user-data', JSON.stringify(user))
+    localStorage.setItem(KEY_USER, JSON.stringify(user))
     state.user = user
   },
   logout(state) {

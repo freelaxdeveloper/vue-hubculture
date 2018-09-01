@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { EventBus } from './event-bus.js'
 import { store } from './store/store.js';
 
 import sassStyles from './assets/sass/app.scss'
@@ -22,7 +21,7 @@ import Logout from './pages/LogoutComponent'
 import UserSearch from './pages/UserSearchComponent'
 import UserInfo from './pages/UserInfoComponent'
 
-
+axios.defaults.baseURL = 'https://id.hubculture.com';
 axios.defaults.headers.common['Private-Key'] = '***'
 axios.defaults.headers.common['Public-Key'] = '***'
 
@@ -47,7 +46,6 @@ var router = new VueRouter({
   routes: [
     {path: '/', component: Home},
     {path: '/login', component: Login, beforeEnter: ifNotAuthenticated},
-    // {path: '/logout', component: Logout, beforeEnter: ifAuthenticated},
     {path: '/logout', component: Logout},
     {path: '/news/:page?', component: News, name: 'news'},
     {path: '/market', component: Market, name: 'market', beforeEnter: ifAuthenticated},
@@ -71,5 +69,19 @@ new Vue({
     if (this.token) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
     }
+
+    // перехватываем запрос
+    axios.interceptors.response.use((response) => {
+      return response;
+    }, (error) => {
+      // если ошибка потому что истек срок годности токена
+      // отправим запрос на получение нового
+      if (401 == error.response.status) {
+        axios.put('/token').then((response) => {
+          this.$store.dispatch('setToken', response.data.data.token)
+        })
+      }
+      return Promise.reject(error);
+    });    
   },
 })

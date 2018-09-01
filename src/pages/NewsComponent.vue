@@ -81,7 +81,7 @@ export default {
         }
       }
 
-      axios.get('https://id.hubculture.com/articles/group/0/news', options).then((response) => {
+      axios.get('/articles/group/0/news', options).then((response) => {
 
         // this.news = lodash._.shuffle(response.data.data.items)
         this.news = response.data.data.items
