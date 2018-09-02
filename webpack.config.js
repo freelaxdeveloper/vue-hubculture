@@ -13,6 +13,13 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.less$/,
+        use: [
+          'vue-style-loader',
+          'less-loader'
+        ],
+      },
+      {
         test: /\.css$/,
         use: [
           'vue-style-loader',
@@ -47,6 +54,12 @@ module.exports = {
               'vue-style-loader',
               'css-loader',
               'sass-loader'
+            ],
+            'less': [
+              'vue-style-loader',
+              'css-loader',
+              'less-loader'
+
             ],
             'sass': [
               'vue-style-loader',
