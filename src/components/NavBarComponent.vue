@@ -13,6 +13,7 @@
           <b-nav-item href="#/market" :class="{active: routeCurrent.path == '/market'}">Market</b-nav-item>
           <b-nav-item href="#/users" :class="{active: routeCurrent.path == '/users'}">Users</b-nav-item>
           <b-nav-item href="#/menu" :class="{active: routeCurrent.path == '/menu'}">Menu</b-nav-item>
+          <b-nav-item href="#/chart" :class="{active: routeCurrent.path == '/chart'}">Chart</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

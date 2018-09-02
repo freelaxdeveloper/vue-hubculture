@@ -21,6 +21,7 @@ import Logout from './pages/LogoutComponent'
 import UserSearch from './pages/UserSearchComponent'
 import UserInfo from './pages/UserInfoComponent'
 import Menu from './pages/MenuComponent'
+import Chart from './pages/ChartComponent'
 
 axios.defaults.baseURL = 'https://id.hubculture.com';
 axios.defaults.headers.common['Private-Key'] = '***'
@@ -47,6 +48,7 @@ var router = new VueRouter({
   routes: [
     {path: '/', component: Home},
     {path: '/menu', component: Menu},
+    {path: '/chart', component: Chart},
     {path: '/login', component: Login, beforeEnter: ifNotAuthenticated},
     {path: '/logout', component: Logout},
     {path: '/news/:page?', component: News, name: 'news'},

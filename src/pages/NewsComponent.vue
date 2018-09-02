@@ -40,7 +40,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import lodash from 'lodash'
-import MugenScroll from 'vue-mugen-scroll'
+import MugenScroll from 'vue-mugen-scroll' // заменить на https://vuejsexamples.com/a-pull-down-refresh-and-pull-up-load-more-and-infinite-scroll-component-for-vue-js/
 
 Vue.component('pagination', require('../components/PaginationComponent.vue').default);
 
