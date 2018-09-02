@@ -10,21 +10,13 @@
           align="left"
         >
           <b-row>
-            <b-col cols="4">
+            <b-col col lg="4">
               <img :src="user.picture.large" :alt="user.name">
             </b-col>
-            <b-col cols="4">
+            <b-col col lg="4">
               <b>Email:</b> {{ user.email }}
             </b-col>
           </b-row>
-          <!-- <b-col cols="4">
-            <b-card border-variant="info"
-              header="Email"
-              align="center"
-            >
-              <p class="card-text">ssss@mail.com</p>
-            </b-card>
-          </b-col> -->
         </b-card>
       </b-col>
 

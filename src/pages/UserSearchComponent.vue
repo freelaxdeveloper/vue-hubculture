@@ -8,7 +8,7 @@
     </p>
     <p>{{ answer }}</p>
     <b-row>
-      <b-col v-for="user in users" :key="user.id" cols="4">
+      <b-col v-for="user in users" :key="user.id" col lg="4">
         <b-card :title="user.name"
           :img-src="user.picture.large"
           img-alt="Image"
